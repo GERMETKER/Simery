@@ -23,9 +23,9 @@
         
         <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="5" Background="#FDF5DF" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ListBox  Margin="5" Name ="ListToDo" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding CaseList}" Background="#FDF5DF" >
-                <TextBlock Text="{Binding Path=CaseName}" />
-                <TextBlock Text="{Binding Path=TimeOfCompleating}" />
-                <TextBlock Text="{Binding Path=Description}" />
+                <TextBlock Text="{Binding CaseName}" />
+                <TextBlock Text="{Binding TimeOfCompleating}" />
+                <TextBlock Text="{Binding Description}" />
             </ListBox>
         </ScrollViewer>
 

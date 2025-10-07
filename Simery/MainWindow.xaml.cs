@@ -34,7 +34,7 @@ namespace Simery
             CasesList.Add(new ToDo("Поработать", new DateTime(2024, 1, 20), "Съездить на совещание в Москву"));
             CasesList.Add(new ToDo("Отдохнуть", new DateTime(2024, 2, 1), "Съездить в отпуск в Сочи"));
 
-            ListToDo.ItemsSource = CasesList;
+            
 
 
 
