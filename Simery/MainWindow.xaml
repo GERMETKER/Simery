@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:Simery"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FFFDFAF1">
+
+    
+     
+
     <Grid>
         
         <Grid.RowDefinitions>
@@ -22,10 +26,21 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Список дел" FontSize="26" HorizontalAlignment="Center" />
         
         <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="5" Background="#FDF5DF" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ListBox  Margin="5" Name ="ListToDo" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding CaseList}" Background="#FDF5DF" >
-                <TextBlock Text="{Binding CaseName}" />
-                <TextBlock Text="{Binding TimeOfCompleating}" />
-                <TextBlock Text="{Binding Description}" />
+            <ListBox  Margin="5" Name ="ListToDo" IsSynchronizedWithCurrentItem="True"  Background="#FDF5DF" ItemsSource="{Binding CasesList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path = CaseName}"/>
+                            <TextBlock Text="{Binding Path = TimeOfCompleating}" />
+                            <TextBlock Text="{Binding Path = Description}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+                
+                
+
+
             </ListBox>
         </ScrollViewer>
 
@@ -43,7 +58,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Button Grid.Column="0" Grid.Row="2" Content="Удалить дела" Background="#5EBEC4" Height="30" Width="100" Margin="5"/>
+        <Button Grid.Column="0" Grid.Row="2" Name="buttonDel" Click="DelCase" Content="Удалить дела" Background="#5EBEC4" Height="30" Width="100" Margin="5"/>
         <Button Grid.Column="1" Grid.Row="2" Name="buttonAdd" Content="Добавить дело" Click="AddCase" Background="#5EBEC4" Height="30" Width="100" Margin="5"/>
     </Grid>
 </Window>
