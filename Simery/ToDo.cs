@@ -9,9 +9,9 @@ namespace Simery
     public class ToDo
     {
 
-        public string CaseName;
-        public DateTime? TimeOfCompleating;
-        public string Description;
+        public string CaseName { get; set; }
+        public DateTime? TimeOfCompleating { get; set; }
+        public string Description { get; set; }
 
         
 
