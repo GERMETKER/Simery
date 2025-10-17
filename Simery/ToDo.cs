@@ -12,7 +12,7 @@ namespace Simery
         public string CaseName { get; set; }
         public DateTime? TimeOfCompleating { get; set; }
         public string Description { get; set; }
-
+        public bool IsCompleted { get; set; }
         
 
         public ToDo(string caseName, DateTime? timeOfCompleating, string description)

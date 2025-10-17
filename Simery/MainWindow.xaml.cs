@@ -20,6 +20,23 @@ namespace Simery
         public List<ToDo> CasesList = new List<ToDo>();
         public AddCaseWindow addCaseWindow = new AddCaseWindow();
 
+
+        /*
+         * <ListBox  Margin="5" Name ="ListToDo" Background="#FDF5DF">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path = CaseName}"></TextBlock>
+                            <TextBlock Text="{Binding Path = TimeOfCompleating, StringFormat=dd.MM.yyyy}"></TextBlock>
+                            <TextBlock Text="{Binding Path = Description}" ></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+        */
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +45,7 @@ namespace Simery
             CasesList.Add(new ToDo("Поработать", new DateTime(2024, 1, 20), "Съездить на совещание в Москву"));
             CasesList.Add(new ToDo("Отдохнуть", new DateTime(2024, 2, 1), "Съездить в отпуск в Сочи"));
 
-            ListToDo.ItemsSource = CasesList;
+            DataGridToDo.ItemsSource = CasesList;
 
             
 
@@ -38,29 +55,23 @@ namespace Simery
 
         private void AddCase(object sender, RoutedEventArgs e)
         {
+            addCaseWindow.Owner = this;
             addCaseWindow.Show();
-
+            
             
         }
-        //<CheckBox Grid.Column="1" Grid.Row="0" Content="Добавление новых дел" VerticalAlignment="Bottom" Name="Box" Checked="Box_Checked" Unchecked="Box_Unchecked"/>
+       
         public void UpdateList()
         {
-            ListToDo.ItemsSource = null;
-            ListToDo.ItemsSource = CasesList;
+            DataGridToDo.ItemsSource = null;
+            DataGridToDo.ItemsSource = CasesList;
         }
 
-       /* private void Box_Checked(object sender, RoutedEventArgs e)
-        {
-            groupBoxToDo.Visibility = Visibility.Visible;
-        }
-        private void Box_Unchecked(object sender, RoutedEventArgs e)
-        {
-            groupBoxToDo.Visibility = Visibility.Hidden;
-        }*/
 
         private void DelCase(object sender, RoutedEventArgs e)
         {
-            CasesList.Remove(ListToDo.SelectedItem as ToDo);
+            //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
+            CasesList.Remove(DataGridToDo.SelectedItem as ToDo);
             UpdateList();
         }
 

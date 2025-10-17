@@ -31,16 +31,23 @@ namespace Simery
             DateTime? date_case = dateToDo.SelectedDate;
             string case_description = descriptionToDo.Text;
 
+            //this.Owner = mainWindow;
 
+            if (this.Owner is MainWindow main)
+            {
 
-            mainWindow.CasesList.Add(new ToDo(case_name, date_case, case_description));
+                main.CasesList.Add(new ToDo(case_name, date_case, case_description));
 
-            titleToDo.Text = null;
-            dateToDo.SelectedDate = null;
-            descriptionToDo.Text = null;
+                titleToDo.Text = null;
+                dateToDo.SelectedDate = null;
+                descriptionToDo.Text = null;
 
-            mainWindow.UpdateList();
-            this.Close();
+                main.UpdateList();
+                this.Close();
+            }
+            
+
+         
         }
     }
 }

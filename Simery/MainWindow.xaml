@@ -15,7 +15,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -23,29 +22,39 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="Список дел" FontSize="26" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Список дел" FontSize="26" HorizontalAlignment="Left" />
 
-        <ScrollViewer Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" Background="#FDF5DF" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ListBox  Margin="5" Name ="ListToDo" Background="#FDF5DF">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Path = CaseName}"></TextBlock>
-                            <TextBlock Text="{Binding Path = TimeOfCompleating, StringFormat=dd.MM.yyyy}"></TextBlock>
-                            <TextBlock Text="{Binding Path = Description}" ></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+        <Button HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0"  Name="buttonAdd" Click="AddCase" Background="#5EBEC4" Height="30" Width="60" Margin="5">
+            <Image Source="Images/Плюс.png" Height="25"></Image>
+        </Button>
 
-            </ListBox>
-        </ScrollViewer>
+        <DataGrid   Name="DataGridToDo" AutoGenerateColumns="False" Background="#FDF5DF" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn/>
+                <DataGridTextColumn Binding="{Binding Path=CaseName}" />
+                <DataGridTextColumn Binding="{Binding Path=TimeOfCompleating, StringFormat=dd.MM.yyyy}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Grid.Column="0" Grid.Row="2" Name="buttonDel" Click="DelCase"  Background="#5EBEC4" Height="15" Width="15" Margin="5">
+                                <Image Source="Images/Крестик.jpg" Height="10"></Image>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate >
+                    <TextBlock Text="{Binding Path = Description}"></TextBlock>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+
+
+
+
 
         
-
-
         
-
-        <Button Grid.Column="0" Grid.Row="2" Name="buttonDel" Click="DelCase" Content="Удалить дело" Background="#5EBEC4" Height="30" Width="100" Margin="5"/>
-        <Button Grid.Column="1" Grid.Row="2"  Name="buttonAdd" Content="Добавить дело" Click="AddCase" Background="#5EBEC4" Height="30" Width="100" Margin="5"/>
     </Grid>
 </Window>
