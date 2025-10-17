@@ -21,21 +21,7 @@ namespace Simery
         public AddCaseWindow addCaseWindow = new AddCaseWindow();
 
 
-        /*
-         * <ListBox  Margin="5" Name ="ListToDo" Background="#FDF5DF">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Path = CaseName}"></TextBlock>
-                            <TextBlock Text="{Binding Path = TimeOfCompleating, StringFormat=dd.MM.yyyy}"></TextBlock>
-                            <TextBlock Text="{Binding Path = Description}" ></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-
-            </ListBox>
-        */
-
+       
 
         public MainWindow()
         {
