@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:Simery"
         mc:Ignorable="d" Background="#FDF5DF"
         Title="AddCaseWindow" Height="450" Width="400">
+
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -13,16 +18,16 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Список дел" FontSize="26" HorizontalAlignment="Center" />
+        <TextBlock  Grid.Row="0" Text="Новое дело" FontSize="26" HorizontalAlignment="Center" />
 
         <StackPanel Grid.Row="1"  Name ="groupBoxToDo"  Margin="5" Background="#FDF5DF" >
             <StackPanel Margin="5" >
-                <TextBlock FontSize="12" Text="Название:"/>
+                <TextBlock  FontSize="12" Text="Название:"/>
                 <TextBox Name = "titleToDo"  Margin="0, 10" HorizontalScrollBarVisibility="Auto"></TextBox>
                 <TextBlock FontSize="12" Text="Выполнить до:"/>
-                <DatePicker Name = "dateToDo"  Margin="0, 10" ></DatePicker>
+                <DatePicker  Name = "dateToDo"  Margin="0, 10" ></DatePicker>
                 <TextBlock FontSize="12" Text="Описание:"/>
-                <TextBox Name = "descriptionToDo"  Margin="0, 10" MaxLines="10" MinLines="10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox  AcceptsTab="True" AcceptsReturn="True"  Name = "descriptionToDo"  Margin="0, 10" MaxLines="10" MinLines="10" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
             </StackPanel>
         </StackPanel>
 

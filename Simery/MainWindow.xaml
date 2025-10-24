@@ -8,10 +8,14 @@
         Title="MainWindow" Height="450" Width="400" Background="#FFFDFAF1">
 
     
-     
 
-    <Grid>
-        
+    
+
+    
+
+
+        <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -22,17 +26,19 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+             
+
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Список дел" FontSize="26" HorizontalAlignment="Left" />
 
-        <Button HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0"  Name="buttonAdd" Click="AddCase" Background="#5EBEC4" Height="30" Width="60" Margin="5">
+        <Button HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"  Name="buttonAdd" Click="AddCase" Background="#5EBEC4" Height="30" Width="60" Margin="135,5,0,5">
             <Image Source="Images/Плюс.png" Height="25"></Image>
         </Button>
 
-        <DataGrid   Name="DataGridToDo" AutoGenerateColumns="False" Background="#FDF5DF" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <DataGrid GridLinesVisibility="Horizontal" HeadersVisibility="None"   Name="DataGridToDo" AutoGenerateColumns="False" Background="#FDF5DF" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn/>
-                <DataGridTextColumn Binding="{Binding Path=CaseName}" />
-                <DataGridTextColumn Binding="{Binding Path=TimeOfCompleating, StringFormat=dd.MM.yyyy}" />
+                <DataGridTextColumn IsReadOnly="True" Width="*" Binding="{Binding Path=CaseName}" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=TimeOfCompleating, StringFormat=dd.MM.yyyy}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -44,8 +50,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
-                <DataTemplate >
-                    <TextBlock Text="{Binding Path = Description}"></TextBlock>
+                <DataTemplate>
+                    <TextBox  TextWrapping="Wrap" IsReadOnly="True" MaxLines="8" Width="370" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Text="{Binding Path = Description}"></TextBox>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
@@ -54,7 +60,7 @@
 
 
 
-        
-        
+
+
     </Grid>
 </Window>

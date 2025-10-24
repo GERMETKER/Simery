@@ -35,7 +35,18 @@ namespace Simery
 
             if (this.Owner is MainWindow main)
             {
-
+                if (case_name == "")
+                {
+                    case_name = "Нет названия";
+                }
+                if (date_case == null)
+                {
+                    date_case = new DateTime(0001, 01, 01);
+                }
+                if (case_description == "")
+                {
+                    case_description = "Нет описания";
+                }
                 main.CasesList.Add(new ToDo(case_name, date_case, case_description));
 
                 titleToDo.Text = null;

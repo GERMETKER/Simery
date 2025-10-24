@@ -18,7 +18,7 @@ namespace Simery
     public partial class MainWindow : Window
     {
         public List<ToDo> CasesList = new List<ToDo>();
-        public AddCaseWindow addCaseWindow = new AddCaseWindow();
+        
 
 
        
@@ -39,8 +39,24 @@ namespace Simery
 
         }
 
+        /*
+         * <Window.Resources>
+        <Style x:Key="TextStyle">
+            <Setter Property="ItemsControl.BorderBrush" Value="#5EBEC4"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="1,5"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="ItemsControl.BorderBrush" Value="#5EBEC4"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="1,5"/>
+        </Style>
+    </Window.Resources>
+        Style="{StaticResource TextStyle}"
+         */
+
         private void AddCase(object sender, RoutedEventArgs e)
         {
+            AddCaseWindow addCaseWindow = new AddCaseWindow();
             addCaseWindow.Owner = this;
             addCaseWindow.Show();
             
