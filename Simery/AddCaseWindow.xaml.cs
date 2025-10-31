@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,11 +54,21 @@ namespace Simery
                 descriptionToDo.Text = null;
 
                 main.UpdateList();
+                main.compleatedCases = 0;
+                main.CasesProgress.Value = 0;
+                main.Val.Text = main.compleatedCases.ToString();
+                main.CasesProgress.Maximum = main.casesCount;
+                main.Max.Text = main.casesCount.ToString();
                 this.Close();
             }
             
 
          
+        }
+
+        private void EndToDo()
+        {
+
         }
     }
 }
