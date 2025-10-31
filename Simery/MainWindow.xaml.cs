@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,9 +18,10 @@ namespace Simery
     public partial class MainWindow : Window
     {
         public List<ToDo> CasesList = new List<ToDo>();
-        
 
+        public int compleatedCases {  get; set; }
 
+        public int casesCount { get; set; }
        
 
         public MainWindow()
@@ -33,10 +34,14 @@ namespace Simery
 
             DataGridToDo.ItemsSource = CasesList;
 
+            casesCount = CasesList.Count;
+
+            CasesProgress.Maximum = casesCount;
+
+            Max.Text = casesCount.ToString();
+            Val.Text = compleatedCases.ToString();
+
             
-
-
-
         }
 
         /*
@@ -59,14 +64,18 @@ namespace Simery
             AddCaseWindow addCaseWindow = new AddCaseWindow();
             addCaseWindow.Owner = this;
             addCaseWindow.Show();
-            
-            
+
+            casesCount = CasesList.Count;
+            CasesProgress.Maximum = casesCount;
+            Max.Text = casesCount.ToString();
         }
        
         public void UpdateList()
         {
             DataGridToDo.ItemsSource = null;
             DataGridToDo.ItemsSource = CasesList;
+            casesCount = CasesList.Count;
+            Max.Text = casesCount.ToString();
         }
 
 
@@ -75,7 +84,41 @@ namespace Simery
             //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
             CasesList.Remove(DataGridToDo.SelectedItem as ToDo);
             UpdateList();
+            compleatedCases = 0;
+            CasesProgress.Value = compleatedCases;
+            CasesProgress.Maximum = casesCount;
+            Val.Text = compleatedCases.ToString();
+            Max.Text = casesCount.ToString();
+
+
         }
 
+
+        private void CasesPlus(object sender, RoutedEventArgs e)
+        {
+            compleatedCases++;
+            CasesProgress.Value = compleatedCases;
+            Val.Text = compleatedCases.ToString();
+            Max.Text = casesCount.ToString();
+
+            /*ToDo temp = new ToDo();
+            temp = sender as ToDo;
+            temp.IsCompleted = true;*/
+
+            
+
+        }
+
+        private void CasesMin(object sender, RoutedEventArgs e)
+        {
+            compleatedCases--;
+            CasesProgress.Value = compleatedCases;
+            Val.Text = compleatedCases.ToString();
+            Max.Text = casesCount.ToString();
+
+            /*ToDo temp = new ToDo();
+            temp = sender as ToDo;
+            temp.IsCompleted = false;*/
+        }
     }
 }
