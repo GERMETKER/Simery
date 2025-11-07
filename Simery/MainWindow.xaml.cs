@@ -101,11 +101,9 @@ namespace Simery
             Val.Text = compleatedCases.ToString();
             Max.Text = casesCount.ToString();
 
-            /*ToDo temp = new ToDo();
-            temp = sender as ToDo;
-            temp.IsCompleted = true;*/
+            var todo = (sender as CheckBox)?.DataContext as ToDo;
+            todo.IsCompleted = true;
 
-            
 
         }
 
@@ -116,9 +114,8 @@ namespace Simery
             Val.Text = compleatedCases.ToString();
             Max.Text = casesCount.ToString();
 
-            /*ToDo temp = new ToDo();
-            temp = sender as ToDo;
-            temp.IsCompleted = false;*/
+            var todo = (sender as CheckBox)?.DataContext as ToDo;
+            todo.IsCompleted = false;
         }
     }
 }
