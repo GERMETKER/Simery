@@ -32,7 +32,7 @@ namespace Simery
             CasesList.Add(new ToDo("Поработать", new DateTime(2024, 1, 20), "Съездить на совещание в Москву"));
             CasesList.Add(new ToDo("Отдохнуть", new DateTime(2024, 2, 1), "Съездить в отпуск в Сочи"));
 
-            DataGridToDo.ItemsSource = CasesList;
+            //ListBoxToDo.ItemsSource = CasesList;
 
             casesCount = CasesList.Count;
 
@@ -72,8 +72,8 @@ namespace Simery
        
         public void UpdateList()
         {
-            DataGridToDo.ItemsSource = null;
-            DataGridToDo.ItemsSource = CasesList;
+            ListBoxToDo.ItemsSource = null;
+            ListBoxToDo.ItemsSource = CasesList;
             casesCount = CasesList.Count;
             Max.Text = casesCount.ToString();
         }
@@ -82,7 +82,7 @@ namespace Simery
         private void DelCase(object sender, RoutedEventArgs e)
         {
             //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
-            CasesList.Remove(DataGridToDo.SelectedItem as ToDo);
+            CasesList.Remove(ListBoxToDo.SelectedItem as ToDo);
             UpdateList();
             compleatedCases = 0;
             CasesProgress.Value = compleatedCases;
@@ -92,6 +92,38 @@ namespace Simery
 
 
         }
+
+        /*
+         * <DataGrid Name="DataGridToDo"  Background="#FDF5DF" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Checked="CasesPlus" Unchecked="CasesMin" IsThreeState="False"
+                                      IsChecked="{Binding Path=IsCompleted}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn  IsReadOnly="True" Width="*" Binding="{Binding Path=CaseName}" />
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=TimeOfCompleating, StringFormat=dd.MM.yyyy}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Grid.Column="0" Grid.Row="2" Name="buttonDel" Click="DelCase"  Background="#5EBEC4" Height="15" Width="15" Margin="5">
+                                <Image Source="Images/Крестик.jpg" Height="10"></Image>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBox  TextWrapping="Wrap" IsReadOnly="True" MaxLines="8" Width="370" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Text="{Binding Path = Description}"></TextBox>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+         */
+
 
 
         private void CasesPlus(object sender, RoutedEventArgs e)
