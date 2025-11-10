@@ -22,10 +22,12 @@ namespace Simery
         public int compleatedCases {  get; set; }
 
         public int casesCount { get; set; }
+        
        
 
         public MainWindow()
         {
+           
             InitializeComponent();
 
             CasesList.Add(new ToDo("Приготовить покушать", new DateTime(2024, 1, 15), "Нет описания"));
@@ -40,8 +42,9 @@ namespace Simery
 
             Max.Text = casesCount.ToString();
             Val.Text = compleatedCases.ToString();
+            UpdateList();
 
-            
+
         }
 
         /*
@@ -76,20 +79,34 @@ namespace Simery
             ListBoxToDo.ItemsSource = CasesList;
             casesCount = CasesList.Count;
             Max.Text = casesCount.ToString();
+            
+            int n = 0;
+            foreach(var i in CasesList)
+            {
+                if (i.IsCompleted == true)
+                {
+                    n++;
+                }
+                else { }
+            }
+            compleatedCases = n;
+            CasesProgress.Value = compleatedCases;
+            CasesProgress.Maximum = casesCount;
+            Val.Text = CasesProgress.Value.ToString();
         }
 
 
         private void DelCase(object sender, RoutedEventArgs e)
         {
             //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
-            CasesList.Remove(ListBoxToDo.SelectedItem as ToDo);
-            UpdateList();
-            compleatedCases = 0;
+            ((sender as Button).DataContext as ToDo).IsCompleted = false;
+            CasesList.Remove((sender as Button).DataContext as ToDo);
+            
             CasesProgress.Value = compleatedCases;
             CasesProgress.Maximum = casesCount;
             Val.Text = compleatedCases.ToString();
             Max.Text = casesCount.ToString();
-
+            UpdateList();
 
         }
 

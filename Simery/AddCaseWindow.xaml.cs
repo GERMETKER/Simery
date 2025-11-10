@@ -53,12 +53,12 @@ namespace Simery
                 dateToDo.SelectedDate = null;
                 descriptionToDo.Text = null;
 
-                main.UpdateList();
-                main.compleatedCases = 0;
+                
                 main.CasesProgress.Value = 0;
                 main.Val.Text = main.compleatedCases.ToString();
                 main.CasesProgress.Maximum = main.casesCount;
                 main.Max.Text = main.casesCount.ToString();
+                main.UpdateList();
                 this.Close();
             }
             
