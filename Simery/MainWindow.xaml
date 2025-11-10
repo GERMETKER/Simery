@@ -58,6 +58,18 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                            
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
                         <CheckBox Checked="CasesPlus" Unchecked="CasesMin" IsThreeState="False" IsChecked="{Binding Path=IsCompleted}"></CheckBox>
                         
                         <TextBox IsReadOnly="True" Text="{Binding Path=CaseName}"></TextBox>
