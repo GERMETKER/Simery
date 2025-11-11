@@ -22,8 +22,16 @@ namespace Simery
         public int compleatedCases {  get; set; }
 
         public int casesCount { get; set; }
-        
-       
+
+        /*
+         * <DataTrigger Binding="{Binding Path=TimeOfCompleating, Converter={StaticResource LessDayConverter}}" Value="True">
+                     <Setter Property="Foreground" Value="Red"></Setter>
+                 </DataTrigger>
+
+                 <DataTrigger Binding="{Binding Path=TimeOfCompleating, Converter={StaticResource LessDayConverter}}" Value="False">
+                     <Setter Property="Foreground" Value="Green"></Setter>
+                 </DataTrigger>
+        */
 
         public MainWindow()
         {
@@ -73,6 +81,7 @@ namespace Simery
             Max.Text = casesCount.ToString();
         }
        
+
         public void UpdateList()
         {
             ListBoxToDo.ItemsSource = null;
