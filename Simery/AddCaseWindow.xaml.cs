@@ -1,5 +1,8 @@
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -7,194 +10,55 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Simery
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AddCaseWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddCaseWindow : Window
     {
-        public List<ToDo> CasesList = new List<ToDo>();
-
-        public int compleatedCases {  get; set; }
-
-        public int casesCount { get; set; }
-
-        /*
-         * <DataTrigger Binding="{Binding Path=TimeOfCompleating, Converter={StaticResource LessDayConverter}}" Value="True">
-                     <Setter Property="Foreground" Value="Red"></Setter>
-                 </DataTrigger>
-
-                 <DataTrigger Binding="{Binding Path=TimeOfCompleating, Converter={StaticResource LessDayConverter}}" Value="False">
-                     <Setter Property="Foreground" Value="Green"></Setter>
-                 </DataTrigger>
-        */
-
-        public MainWindow()
+        public AddCaseWindow()
         {
-           
             InitializeComponent();
-
-            CasesList.Add(new ToDo("Приготовить покушать", new DateTime(2024, 1, 15), "Нет описания"));
-            CasesList.Add(new ToDo("Поработать", new DateTime(2024, 1, 20), "Съездить на совещание в Москву"));
-            CasesList.Add(new ToDo("Отдохнуть", new DateTime(2024, 2, 1), "Съездить в отпуск в Сочи"));
-
-            //ListBoxToDo.ItemsSource = CasesList;
-
-            casesCount = CasesList.Count;
-
-            CasesProgress.Maximum = casesCount;
-
-            Max.Text = casesCount.ToString();
-            Val.Text = compleatedCases.ToString();
-            UpdateList();
-
-
         }
 
-        /*
-         * <Window.Resources>
-        <Style x:Key="TextStyle">
-            <Setter Property="ItemsControl.BorderBrush" Value="#5EBEC4"/>
-            <Setter Property="ItemsControl.BorderThickness" Value="1,5"/>
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="ItemsControl.BorderBrush" Value="#5EBEC4"/>
-            <Setter Property="ItemsControl.BorderThickness" Value="1,5"/>
-        </Style>
-    </Window.Resources>
-        Style="{StaticResource TextStyle}"
-         */
-
-        private void AddCase(object sender, RoutedEventArgs e)
+        private void SaveCase(object sender, RoutedEventArgs e)
         {
-            AddCaseWindow addCaseWindow = new AddCaseWindow();
-            addCaseWindow.Owner = this;
-            addCaseWindow.Show();
+            MainWindow mainWindow = new MainWindow();
+            string case_name = titleToDo.Text;
+            DateTime? date_case = dateToDo.SelectedDate;
+            string case_description = descriptionToDo.Text;
 
-            casesCount = CasesList.Count;
-            CasesProgress.Maximum = casesCount;
-            Max.Text = casesCount.ToString();
-        }
-       
+            //this.Owner = mainWindow;
 
-        public void UpdateList()
-        {
-            ListBoxToDo.ItemsSource = null;
-            ListBoxToDo.ItemsSource = CasesList;
-            casesCount = CasesList.Count;
-            Max.Text = casesCount.ToString();
-            
-            int n = 0;
-            foreach(var i in CasesList)
+            if (this.Owner is MainWindow main)
             {
-                if (i.IsCompleted == true)
+                if (case_name == "")
                 {
-                    n++;
+                    case_name = "Нет названия";
                 }
-                else { }
+                if (date_case == null)
+                {
+                    date_case = new DateTime(0001, 01, 01);
+                }
+                if (case_description == "")
+                {
+                    case_description = "Нет описания";
+                }
+                main.CasesList.Add(new ToDo(case_name, date_case, case_description));
+
+                titleToDo.Text = null;
+                dateToDo.SelectedDate = null;
+                descriptionToDo.Text = null;
+
+                main.UpdateList();
+                this.Close();
             }
-            compleatedCases = n;
-            CasesProgress.Value = compleatedCases;
-            CasesProgress.Maximum = casesCount;
-            Val.Text = CasesProgress.Value.ToString();
-        }
-
-
-        private void DelCase(object sender, RoutedEventArgs e)
-        {
-            //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
-            ((sender as Button).DataContext as ToDo).IsCompleted = false;
-            CasesList.Remove((sender as Button).DataContext as ToDo);
-            
-            CasesProgress.Value = compleatedCases;
-            CasesProgress.Maximum = casesCount;
-            Val.Text = compleatedCases.ToString();
-            Max.Text = casesCount.ToString();
-            UpdateList();
-
-        }
-
-        /*
-         * <DataGrid Name="DataGridToDo"  Background="#FDF5DF" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox Checked="CasesPlus" Unchecked="CasesMin" IsThreeState="False"
-                                      IsChecked="{Binding Path=IsCompleted}"></CheckBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn  IsReadOnly="True" Width="*" Binding="{Binding Path=CaseName}" />
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=TimeOfCompleating, StringFormat=dd.MM.yyyy}" />
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Grid.Column="0" Grid.Row="2" Name="buttonDel" Click="DelCase"  Background="#5EBEC4" Height="15" Width="15" Margin="5">
-                                <Image Source="Images/Крестик.jpg" Height="10"></Image>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-            <DataGrid.RowDetailsTemplate>
-                <DataTemplate>
-                    <TextBox  TextWrapping="Wrap" IsReadOnly="True" MaxLines="8" Width="370" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Text="{Binding Path = Description}"></TextBox>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
-        </DataGrid>
-         */
 
 
 
-        private void CasesPlus(object sender, RoutedEventArgs e)
-        {
-            compleatedCases++;
-            CasesProgress.Value = compleatedCases;
-            Val.Text = compleatedCases.ToString();
-            Max.Text = casesCount.ToString();
-
-            var todo = (sender as CheckBox)?.DataContext as ToDo;
-            todo.IsCompleted = true;
-
-
-        }
-
-        private void CasesMin(object sender, RoutedEventArgs e)
-        {
-            compleatedCases--;
-            CasesProgress.Value = compleatedCases;
-            Val.Text = compleatedCases.ToString();
-            Max.Text = casesCount.ToString();
-
-            var todo = (sender as CheckBox)?.DataContext as ToDo;
-            todo.IsCompleted = false;
-        }
-
-        private void SaveInCase(object sender, RoutedEventArgs e)
-        {
-            var dialog = new Microsoft.Win32.SaveFileDialog();
-            dialog.FileName = "To-do list"; // Default file name
-            dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Text File|.txt"; // Filter files by extension
-
-            
-            bool? result = dialog.ShowDialog();
-
-            
-            if (result == true)
-            {
-                
-                string filename = dialog.FileName;
-                var streamWriter = new StreamWriter);
-
-            }
         }
     }
 }
