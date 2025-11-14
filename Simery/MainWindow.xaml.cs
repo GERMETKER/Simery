@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -174,6 +175,47 @@ namespace Simery
 
             var todo = (sender as CheckBox)?.DataContext as ToDo;
             todo.IsCompleted = false;
+        }
+
+        private void SaveInCase(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.FileName = "Saved_list"; // Default file name
+            dialog.DefaultExt = ".txt"; // Default file extension
+            dialog.Filter = "Text File|*.txt"; // Filter files by extension
+
+            // Show save file dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filePath = dialog.FileName;
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    var d = new DateTime();
+                    foreach (var i in CasesList)
+                    {
+                        
+                        if(i.IsCompleted == true)
+                        {
+                            writer.Write("✓");
+                        }
+                        else
+                        {
+                            writer.Write(" ");
+                        }
+                        writer.WriteLine(i.CaseName);
+                        writer.WriteLine("");
+                        writer.WriteLine(i.Description);
+                        writer.WriteLine("");
+                        writer.WriteLine(i.TimeOfCompleating.ToString());
+                        writer.WriteLine("");
+                        writer.WriteLine("");
+                    }
+                }
+            }
         }
     }
 }
