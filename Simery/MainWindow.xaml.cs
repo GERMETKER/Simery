@@ -109,14 +109,21 @@ namespace Simery
         private void DelCase(object sender, RoutedEventArgs e)
         {
             //DataGridToDo.Remove(DataGridToDo.SelectedItem as ToDo);
-            ((sender as Button).DataContext as ToDo).IsCompleted = false;
-            CasesList.Remove((sender as Button).DataContext as ToDo);
+            if (MessageBox.Show("Вы уверены, что хотите удалить дело?",
+                    "Удаление дела",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ((sender as Button).DataContext as ToDo).IsCompleted = false;
+                CasesList.Remove((sender as Button).DataContext as ToDo);
+
+                CasesProgress.Value = compleatedCases;
+                CasesProgress.Maximum = casesCount;
+                Val.Text = compleatedCases.ToString();
+                Max.Text = casesCount.ToString();
+                UpdateList();
+            }
             
-            CasesProgress.Value = compleatedCases;
-            CasesProgress.Maximum = casesCount;
-            Val.Text = compleatedCases.ToString();
-            Max.Text = casesCount.ToString();
-            UpdateList();
 
         }
 
@@ -179,40 +186,50 @@ namespace Simery
 
         private void SaveInCase(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.SaveFileDialog();
-            dialog.FileName = "Saved_list"; // Default file name
-            dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Text File|*.txt"; // Filter files by extension
-
-            // Show save file dialog box
-            bool? result = dialog.ShowDialog();
-
-            // Process save file dialog box results
-            if (result == true)
+            if (CasesList.Count == 0)
             {
-                // Save document
-                string filePath = dialog.FileName;
-                using (StreamWriter writer = new StreamWriter(filePath))
+                MessageBox.Show("В списке нет дел");
+            }
+            else
+            {
+
+
+
+                var dialog = new Microsoft.Win32.SaveFileDialog();
+                dialog.FileName = "Saved_list"; // Default file name
+                dialog.DefaultExt = ".txt"; // Default file extension
+                dialog.Filter = "Text File|*.txt"; // Filter files by extension
+
+                // Show save file dialog box
+                bool? result = dialog.ShowDialog();
+
+                // Process save file dialog box results
+                if (result == true)
                 {
-                    var d = new DateTime();
-                    foreach (var i in CasesList)
+                    // Save document
+                    string filePath = dialog.FileName;
+                    using (StreamWriter writer = new StreamWriter(filePath))
                     {
-                        
-                        if(i.IsCompleted == true)
+                        var d = new DateTime();
+                        foreach (var i in CasesList)
                         {
-                            writer.Write("✓");
+
+                            if (i.IsCompleted == true)
+                            {
+                                writer.Write("✓");
+                            }
+                            else
+                            {
+                                writer.Write(" ");
+                            }
+                            writer.WriteLine(i.CaseName);
+                            writer.WriteLine("");
+                            writer.WriteLine(i.Description);
+                            writer.WriteLine("");
+                            writer.WriteLine(i.TimeOfCompleating.ToString());
+                            writer.WriteLine("");
+                            writer.WriteLine("");
                         }
-                        else
-                        {
-                            writer.Write(" ");
-                        }
-                        writer.WriteLine(i.CaseName);
-                        writer.WriteLine("");
-                        writer.WriteLine(i.Description);
-                        writer.WriteLine("");
-                        writer.WriteLine(i.TimeOfCompleating.ToString());
-                        writer.WriteLine("");
-                        writer.WriteLine("");
                     }
                 }
             }
