@@ -110,7 +110,7 @@
             <Image Source="Images/Плюс.png" Height="25"></Image>
         </Button>
 
-        <ListBox ItemContainerStyle="{StaticResource Berr}" HorizontalContentAlignment = "Stretch" x:Name="ListBoxToDo" Background="#FDF5DF" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="0" Margin="5" Width="380">
+        <ListBox ItemContainerStyle="{StaticResource Berr}" HorizontalContentAlignment = "Stretch" x:Name="ListBoxToDo" Background="#FDF5DF" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="0" Margin="5" Width="Auto">
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <Grid>
