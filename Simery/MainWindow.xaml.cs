@@ -211,10 +211,10 @@ namespace Simery
                     string filePath = dialog.FileName;
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
-                        var d = new DateTime();
+
                         foreach (var i in CasesList)
                         {
-
+                            DateOnly d = DateOnly.FromDateTime(i.TimeOfCompleating.Value);
                             if (i.IsCompleted == true)
                             {
                                 writer.Write("✓");
@@ -227,7 +227,7 @@ namespace Simery
                             writer.WriteLine("");
                             writer.WriteLine(i.Description);
                             writer.WriteLine("");
-                            writer.WriteLine(i.TimeOfCompleating.ToString());
+                            writer.WriteLine(d.ToString());
                             writer.WriteLine("");
                             writer.WriteLine("");
                         }
