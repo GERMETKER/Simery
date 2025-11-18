@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -231,6 +232,26 @@ namespace Simery
                             writer.WriteLine("");
                         }
                     }
+                }
+
+                var dialog2 = new Microsoft.Win32.SaveFileDialog();
+                dialog2.FileName = "Saved_list"; // Default file name
+                dialog2.DefaultExt = ".json"; // Default file extension
+                dialog2.Filter = "Text File|*.json"; // Filter files by extension
+
+                // Show save file dialog box
+                bool? result2 = dialog2.ShowDialog();
+
+                // Process save file dialog box results
+                if (result2 == true)
+                {
+                    string filePath2 = dialog2.FileName;
+                    var settings = new JsonSerializerSettings
+                    {
+                        Formatting = Formatting.Indented
+                    };
+                    string json = JsonConvert.SerializeObject(CasesList, settings);
+                    File.WriteAllText(filePath2, json);
                 }
             }
         }
